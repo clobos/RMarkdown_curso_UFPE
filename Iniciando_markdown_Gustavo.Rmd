@@ -1,0 +1,84 @@
+---
+title: "markdown"
+author: "Gustavo Jun Yakushiji"
+date: ""
+output: 
+  html_document: 
+    toc: yes
+    number_sections: yes
+    fontsize: 12pt
+linestretch: 1.0
+geometry: "left=3cm, right=3cm, top=2.5cm, bottom=2.5cm"
+bibliography: [referencias.bib]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval=TRUE,
+                      echo=TRUE,
+                      cache = TRUE,
+                      #comment = "**--**",
+                      error=TRUE,
+                      message = FALSE,
+                      warning = FALSE)
+```
+
+# Titulo
+No penúltimo jogo da Copa América de 2020, a Colômbia venceu o Peru de virada por 3 a 2 em Brasília nesta sexta-feira e ficou com o terceiro lugar na classificação geral da competição.
+
+O Peru abriu o placar aos 45 minutos do primeiro tempo com Yotun. Na etapa final, a Colômbia virou com Cuadrado aos 4 minutos e Luis Diáz aos 21 da etapa final. Aos 37 do segundo tempo, Lapadula, de cabeça, empatou o confronto para os peruanos.
+
+
+## Titulo
+No penúltimo jogo da Copa América de 2020, a Colômbia venceu o Peru de virada por 3 a 2 em Brasília nesta sexta-feira e ficou com o terceiro lugar na classificação geral da competição.
+
+O Peru abriu o placar aos 45 minutos do primeiro tempo com Yotun. Na etapa final, a Colômbia virou com Cuadrado aos 4 minutos e Luis Diáz aos 21 da etapa final. Aos 37 do segundo tempo, Lapadula, de cabeça, empatou o confronto para os peruanos.
+
+### Titulo
+No penúltimo jogo da Copa América de 2020, a Colômbia venceu o Peru de virada por 3 a 2 em Brasília nesta sexta-feira e ficou com o terceiro lugar na classificação geral da competição.
+
+O Peru abriu o placar aos 45 minutos do primeiro tempo com Yotun. Na etapa final, a Colômbia virou com Cuadrado aos 4 minutos e Luis Diáz aos 21 da etapa final. Aos 37 do segundo tempo, Lapadula, de cabeça, empatou o confronto para os peruanos.
+
+```{r}
+summary(pressure)
+```
+
+
+```{r echo=FALSE,fig.height=10,fig.width=8 ,fig.align = 'center',fig.cap="Knitr logo"}
+knitr::include_graphics('knit_logo.png')
+```
+
+## Fórmulas
+
+Veja $f(x)=x^2$
+
+A seguir um gráfico de dispersão dos nossos dados...(Veja Figura \ref{scatterplot})
+
+```{r,fig.height=5, fig.width=5,fig.cap= "\\label{scatterplot}Titulo do meu gráfico"}
+plot(Ozone~Wind, data=airquality, pch=20, 
+     col="darkorange", lwd=3)
+```
+
+A seguir o ajuste do modelo usando o \textcolor{red}{software R}
+
+```{r, eval=TRUE}
+ajuste<- lm(Ozone~Wind, data=airquality)
+teta<- round(coef(ajuste),3)
+betaS<- round(coef(summary(ajuste)),3)
+knitr::kable(betaS, caption = "\\label{tabelajuste}
+             Ajuste de um ML para os dados airquality")
+```
+
+O modelo ajustado foi $\widehat{\text{Ozone}}_i=$ `r teta[1]` `r teta[2]` $\text{Wind}_i$ (Veja Tabela  \ref{tabelajuste})
+
+```{r}
+citation("ggplot2")
+```
+
+```{r}
+library(ggplot2)
+```
+
+
+Podemos usar @ggplot2 ou [@ggplot2].  
+
+# Referências
