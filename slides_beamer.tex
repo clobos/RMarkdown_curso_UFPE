@@ -1,7 +1,45 @@
 \PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
 \PassOptionsToPackage{hyphens}{url}
 %
-\documentclass[12pt,]{article}
+\documentclass[10pt,ignorenonframetext,]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph:
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+\centering
+\begin{beamercolorbox}[sep=16pt,center]{part title}
+  \usebeamerfont{part title}\insertpart\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+\centering
+\begin{beamercolorbox}[sep=12pt,center]{part title}
+  \usebeamerfont{section title}\insertsection\par
+\end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+\centering
+\begin{beamercolorbox}[sep=8pt,center]{part title}
+  \usebeamerfont{subsection title}\insertsubsection\par
+\end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
 \usepackage{lmodern}
 \usepackage{setspace}
 \setstretch{1.0}
@@ -16,6 +54,8 @@
   \usepackage{unicode-math}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
+\usetheme[]{CambridgeUS}
+\usefonttheme{serif}
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
@@ -36,7 +76,7 @@
             pdfborder={0 0 0},
             breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
-\usepackage[left=3cm, right=3cm, top=2.5cm, bottom=2.5cm]{geometry}
+\newif\ifbibliography
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -78,8 +118,11 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.02,0.61,0.04}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{1.00,1.00,0.00}{\textbf{#1}}}
 \usepackage{longtable,booktabs}
-% Fix footnotes in tables (requires footnote package)
-\IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{longtable}}{}
+\usepackage{caption}
+% These lines are needed to make table captions work with longtable:
+\makeatletter
+\def\fnum@table{\tablename~\thetable}
+\makeatother
 \usepackage{graphicx,grffile}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -92,16 +135,7 @@
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
+\setcounter{secnumdepth}{0}
 
 % set default figure placement to htbp
 \makeatletter
@@ -116,30 +150,33 @@
 \date{10/Jul/2021}
 
 \begin{document}
-\maketitle
+\frame{\titlepage}
 
-{
-\setcounter{tocdepth}{2}
-\tableofcontents
-}
+\begin{frame}
+\tableofcontents[hideallsubsections]
+\end{frame}
 \hypertarget{resumo}{%
-\section*{Resumo}\label{resumo}}
-\addcontentsline{toc}{section}{Resumo}
+\section{Resumo}\label{resumo}}
+
+\begin{frame}{Resumo}
+\protect\hypertarget{resumo-1}{}
 
 Os documentos R Markdown são totalmente reproduzíveis e usa várias
 linguagens, incluindo R, Python e SQL. R Markdown oferece suporte a
 dezenas de formatos de saída estáticos e dinâmicos, incluindo HTML, PDF,
 Word, Beamer, slides HTML5, apostilas no estilo Tufte, livros, painéis,
-aplicativos shiny, artigos científicos, sites e muito mais.
+aplicativos shiny, artigos científicos, sites e muito mais. Neste
+minicurso de duas horas, apresentamos as principais ferramentas para
+criar um relatório dinâmico dentro do Rstudio com exemplos na área da
+estatística.
 
-Neste minicurso de duas horas, apresentamos as principais ferramentas
-para criar um relatório dinâmico dentro do Rstudio com exemplos na área
-da estatística.
-
-\newpage
+\end{frame}
 
 \hypertarget{links}{%
-\section{Alguns links}\label{links}}
+\section{Links}\label{links}}
+
+\begin{frame}{Alguns links \{\label{links}\}}
+\protect\hypertarget{alguns-links}{}
 
 \begin{itemize}
 \item
@@ -162,25 +199,31 @@ da estatística.
 
 }
 
-\caption{Knitr logo}\label{fig:unnamed-chunk-3}
+\caption{Knitr logo}\label{fig:unnamed-chunk-2}
 \end{figure}
 
-\hypertarget{fuxf3rmulas}{%
-\subsection{Fórmulas}\label{fuxf3rmulas}}
+\end{frame}
+
+\begin{frame}{Fórmulas}
+\protect\hypertarget{fuxf3rmulas}{}
 
 Veja \(f(x)=x^2\)
 
-\hypertarget{cuxf3digo-r}{%
-\subsection{Código R}\label{cuxf3digo-r}}
+\end{frame}
+
+\begin{frame}[fragile]{Código R}
+\protect\hypertarget{cuxf3digo-r}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{width =} \DecValTok{60}\NormalTok{)}
 \KeywordTok{names}\NormalTok{(airquality)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-**--** [1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"   "Day"
+# [1] "Ozone"   "Solar.R" "Wind"    "Temp"    "Month"  
+# [6] "Day"
 \end{verbatim}
 
 \begin{Shaded}
@@ -190,23 +233,28 @@ Veja \(f(x)=x^2\)
 \end{Shaded}
 
 \begin{verbatim}
-**--**      Ozone           Solar.R           Wind             Temp      
-**--**  Min.   :  1.00   Min.   :  7.0   Min.   : 1.700   Min.   :56.00  
-**--**  1st Qu.: 18.00   1st Qu.:115.8   1st Qu.: 7.400   1st Qu.:72.00  
-**--**  Median : 31.50   Median :205.0   Median : 9.700   Median :79.00  
-**--**  Mean   : 42.13   Mean   :185.9   Mean   : 9.958   Mean   :77.88  
-**--**  3rd Qu.: 63.25   3rd Qu.:258.8   3rd Qu.:11.500   3rd Qu.:85.00  
-**--**  Max.   :168.00   Max.   :334.0   Max.   :20.700   Max.   :97.00  
-**--**  NA's   :37       NA's   :7                                       
-**--**      Month            Day      
-**--**  Min.   :5.000   Min.   : 1.0  
-**--**  1st Qu.:6.000   1st Qu.: 8.0  
-**--**  Median :7.000   Median :16.0  
-**--**  Mean   :6.993   Mean   :15.8  
-**--**  3rd Qu.:8.000   3rd Qu.:23.0  
-**--**  Max.   :9.000   Max.   :31.0  
-**--** 
+#      Ozone           Solar.R           Wind       
+#  Min.   :  1.00   Min.   :  7.0   Min.   : 1.700  
+#  1st Qu.: 18.00   1st Qu.:115.8   1st Qu.: 7.400  
+#  Median : 31.50   Median :205.0   Median : 9.700  
+#  Mean   : 42.13   Mean   :185.9   Mean   : 9.958  
+#  3rd Qu.: 63.25   3rd Qu.:258.8   3rd Qu.:11.500  
+#  Max.   :168.00   Max.   :334.0   Max.   :20.700  
+#  NA's   :37       NA's   :7                       
+#       Temp           Month            Day      
+#  Min.   :56.00   Min.   :5.000   Min.   : 1.0  
+#  1st Qu.:72.00   1st Qu.:6.000   1st Qu.: 8.0  
+#  Median :79.00   Median :7.000   Median :16.0  
+#  Mean   :77.88   Mean   :6.993   Mean   :15.8  
+#  3rd Qu.:85.00   3rd Qu.:8.000   3rd Qu.:23.0  
+#  Max.   :97.00   Max.   :9.000   Max.   :31.0  
+# 
 \end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Código R}
+\protect\hypertarget{cuxf3digo-r-1}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -217,77 +265,106 @@ Veja \(f(x)=x^2\)
 
 \begin{figure}
 \centering
-\includegraphics{html_pdf_document_files/figure-latex/unnamed-chunk-4-1.pdf}
+\includegraphics{slides_beamer_files/figure-beamer/unnamed-chunk-4-1.pdf}
 \caption{Gráfico de dispersão qualidade do ar}
 \end{figure}
 
-A seguir uma lista de opções do \texttt{chunk}
+\end{frame}
+
+\begin{frame}[fragile]{A seguir uma lista de opções do \texttt{chunk}}
+\protect\hypertarget{a-seguir-uma-lista-de-opuxe7uxf5es-do-chunk}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{width =} \DecValTok{60}\NormalTok{)}
 \KeywordTok{names}\NormalTok{(knitr}\OperatorTok{::}\NormalTok{opts_chunk}\OperatorTok{$}\KeywordTok{get}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-**--**  [1] "eval"          "echo"          "results"       "tidy"         
-**--**  [5] "tidy.opts"     "collapse"      "prompt"        "comment"      
-**--**  [9] "highlight"     "strip.white"   "size"          "background"   
-**--** [13] "cache"         "cache.path"    "cache.vars"    "cache.lazy"   
-**--** [17] "dependson"     "autodep"       "cache.rebuild" "fig.keep"     
-**--** [21] "fig.show"      "fig.align"     "fig.path"      "dev"          
-**--** [25] "dev.args"      "dpi"           "fig.ext"       "fig.width"    
-**--** [29] "fig.height"    "fig.env"       "fig.cap"       "fig.scap"     
-**--** [33] "fig.lp"        "fig.subcap"    "fig.pos"       "out.width"    
-**--** [37] "out.height"    "out.extra"     "fig.retina"    "external"     
-**--** [41] "sanitize"      "interval"      "aniopts"       "warning"      
-**--** [45] "error"         "message"       "render"        "ref.label"    
-**--** [49] "child"         "engine"        "split"         "include"      
-**--** [53] "purl"          "crop"
+#  [1] "eval"          "echo"          "results"      
+#  [4] "tidy"          "tidy.opts"     "collapse"     
+#  [7] "prompt"        "comment"       "highlight"    
+# [10] "strip.white"   "size"          "background"   
+# [13] "cache"         "cache.path"    "cache.vars"   
+# [16] "cache.lazy"    "dependson"     "autodep"      
+# [19] "cache.rebuild" "fig.keep"      "fig.show"     
+# [22] "fig.align"     "fig.path"      "dev"          
+# [25] "dev.args"      "dpi"           "fig.ext"      
+# [28] "fig.width"     "fig.height"    "fig.env"      
+# [31] "fig.cap"       "fig.scap"      "fig.lp"       
+# [34] "fig.subcap"    "fig.pos"       "out.width"    
+# [37] "out.height"    "out.extra"     "fig.retina"   
+# [40] "external"      "sanitize"      "interval"     
+# [43] "aniopts"       "warning"       "error"        
+# [46] "message"       "render"        "ref.label"    
+# [49] "child"         "engine"        "split"        
+# [52] "include"       "purl"          "crop"
 \end{verbatim}
 
-A seguir uma lista de opções do \texttt{chunk}
+\end{frame}
+
+\begin{frame}[fragile]{A seguir uma lista de opções do \texttt{chunk}}
+\protect\hypertarget{a-seguir-uma-lista-de-opuxe7uxf5es-do-chunk-1}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{width =} \DecValTok{60}\NormalTok{)}
 \NormalTok{knitr}\OperatorTok{::}\NormalTok{knit_theme}\OperatorTok{$}\KeywordTok{get}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-**--**  [1] "acid"              "aiseered"          "andes"            
-**--**  [4] "anotherdark"       "autumn"            "baycomb"          
-**--**  [7] "bclear"            "biogoo"            "bipolar"          
-**--** [10] "blacknblue"        "bluegreen"         "breeze"           
-**--** [13] "bright"            "camo"              "candy"            
-**--** [16] "clarity"           "dante"             "darkblue"         
-**--** [19] "darkbone"          "darkness"          "darkslategray"    
-**--** [22] "darkspectrum"      "default"           "denim"            
-**--** [25] "dusk"              "earendel"          "easter"           
-**--** [28] "edit-anjuta"       "edit-eclipse"      "edit-emacs"       
-**--** [31] "edit-flashdevelop" "edit-gedit"        "edit-jedit"       
-**--** [34] "edit-kwrite"       "edit-matlab"       "edit-msvs2008"    
-**--** [37] "edit-nedit"        "edit-vim-dark"     "edit-vim"         
-**--** [40] "edit-xcode"        "ekvoli"            "fine_blue"        
-**--** [43] "freya"             "fruit"             "golden"           
-**--** [46] "greenlcd"          "greyscale0"        "greyscale1"       
-**--** [49] "greyscale2"        "kellys"            "leo"              
-**--** [52] "lucretia"          "manxome"           "maroloccio"       
-**--** [55] "matrix"            "moe"               "molokai"          
-**--** [58] "moria"             "navajo-night"      "navy"             
-**--** [61] "neon"              "night"             "nightshimmer"     
-**--** [64] "nuvola"            "olive"             "orion"            
-**--** [67] "oxygenated"        "pablo"             "peaksea"          
-**--** [70] "print"             "rand01"            "rdark"            
-**--** [73] "relaxedgreen"      "rootwater"         "seashell"         
-**--** [76] "solarized-dark"    "solarized-light"   "tabula"           
-**--** [79] "tcsoft"            "vampire"           "whitengrey"       
-**--** [82] "xoria256"          "zellner"           "zenburn"          
-**--** [85] "zmrok"
+#  [1] "acid"              "aiseered"         
+#  [3] "andes"             "anotherdark"      
+#  [5] "autumn"            "baycomb"          
+#  [7] "bclear"            "biogoo"           
+#  [9] "bipolar"           "blacknblue"       
+# [11] "bluegreen"         "breeze"           
+# [13] "bright"            "camo"             
+# [15] "candy"             "clarity"          
+# [17] "dante"             "darkblue"         
+# [19] "darkbone"          "darkness"         
+# [21] "darkslategray"     "darkspectrum"     
+# [23] "default"           "denim"            
+# [25] "dusk"              "earendel"         
+# [27] "easter"            "edit-anjuta"      
+# [29] "edit-eclipse"      "edit-emacs"       
+# [31] "edit-flashdevelop" "edit-gedit"       
+# [33] "edit-jedit"        "edit-kwrite"      
+# [35] "edit-matlab"       "edit-msvs2008"    
+# [37] "edit-nedit"        "edit-vim-dark"    
+# [39] "edit-vim"          "edit-xcode"       
+# [41] "ekvoli"            "fine_blue"        
+# [43] "freya"             "fruit"            
+# [45] "golden"            "greenlcd"         
+# [47] "greyscale0"        "greyscale1"       
+# [49] "greyscale2"        "kellys"           
+# [51] "leo"               "lucretia"         
+# [53] "manxome"           "maroloccio"       
+# [55] "matrix"            "moe"              
+# [57] "molokai"           "moria"            
+# [59] "navajo-night"      "navy"             
+# [61] "neon"              "night"            
+# [63] "nightshimmer"      "nuvola"           
+# [65] "olive"             "orion"            
+# [67] "oxygenated"        "pablo"            
+# [69] "peaksea"           "print"            
+# [71] "rand01"            "rdark"            
+# [73] "relaxedgreen"      "rootwater"        
+# [75] "seashell"          "solarized-dark"   
+# [77] "solarized-light"   "tabula"           
+# [79] "tcsoft"            "vampire"          
+# [81] "whitengrey"        "xoria256"         
+# [83] "zellner"           "zenburn"          
+# [85] "zmrok"
 \end{verbatim}
 
-A seguir um gráfico de dispersão dos nossos dados\ldots{}(Veja Figura
-\ref{scatterplot})
+\end{frame}
+
+\begin{frame}[fragile]{A seguir um gráfico de dispersão dos nossos
+dados\ldots{}(Veja Figura \ref{scatterplot})}
+\protect\hypertarget{a-seguir-um-gruxe1fico-de-dispersuxe3o-dos-nossos-dadosveja-figura}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -298,11 +375,15 @@ A seguir um gráfico de dispersão dos nossos dados\ldots{}(Veja Figura
 
 \begin{figure}
 \centering
-\includegraphics{html_pdf_document_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{slides_beamer_files/figure-beamer/unnamed-chunk-7-1.pdf}
 \caption{\label{scatterplot}Titulo do meu gráfico}
 \end{figure}
 
-A seguir o ajuste do modelo usando o \textcolor{red}{software R}
+\end{frame}
+
+\begin{frame}[fragile]{A seguir o ajuste do modelo usando o
+\textcolor{red}{software R}}
+\protect\hypertarget{a-seguir-o-ajuste-do-modelo-usando-o}{}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -332,8 +413,13 @@ Wind & -5.551 & 0.690 & -8.040 & 0\tabularnewline
 \bottomrule
 \end{longtable}
 
-O modelo ajustado foi \(\widehat{\text{Ozone}}_i=\) 96.873 -5.551
-\(\text{Wind}_i\) (Veja Tabela \ref{tabelajuste})
+\end{frame}
+
+\begin{frame}[fragile]{O modelo ajustado foi\ldots{}}
+\protect\hypertarget{o-modelo-ajustado-foi}{}
+
+\(\widehat{\text{Ozone}}_i=\) 96.873 -5.551 \(\text{Wind}_i\) (Veja
+Tabela \ref{tabelajuste})
 
 \textcolor{red}{Alternativa}
 
@@ -344,14 +430,17 @@ O modelo ajustado foi \(\widehat{\text{Ozone}}_i=\) 96.873 -5.551
 \end{Shaded}
 
 \begin{verbatim}
-**--** $Ozone=96.873 -5.551 Wind$
+# $Ozone=96.873 -5.551 Wind$
 \end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]{Citando livros, artigos, etc}
+\protect\hypertarget{citando-livros-artigos-etc}{}
 
 Veja mais detalhes na seção \ref{links}
 
-\hypertarget{citando-livros-artigos-etc}{%
-\section{Citando livros, artigos,
-etc}\label{citando-livros-artigos-etc}}
+\tiny
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -360,31 +449,38 @@ etc}\label{citando-livros-artigos-etc}}
 \end{Shaded}
 
 \begin{verbatim}
-**--** 
-**--** To cite ggplot2 in publications, please use:
-**--** 
-**--**   H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
-**--**   Springer-Verlag New York, 2016.
-**--** 
-**--** A BibTeX entry for LaTeX users is
-**--** 
-**--**   @Book{,
-**--**     author = {Hadley Wickham},
-**--**     title = {ggplot2: Elegant Graphics for Data Analysis},
-**--**     publisher = {Springer-Verlag New York},
-**--**     year = {2016},
-**--**     isbn = {978-3-319-24277-4},
-**--**     url = {https://ggplot2.tidyverse.org},
-**--**   }
+# 
+# To cite ggplot2 in publications, please use:
+# 
+#   H. Wickham. ggplot2: Elegant Graphics for Data Analysis.
+#   Springer-Verlag New York, 2016.
+# 
+# A BibTeX entry for LaTeX users is
+# 
+#   @Book{,
+#     author = {Hadley Wickham},
+#     title = {ggplot2: Elegant Graphics for Data Analysis},
+#     publisher = {Springer-Verlag New York},
+#     year = {2016},
+#     isbn = {978-3-319-24277-4},
+#     url = {https://ggplot2.tidyverse.org},
+#   }
 \end{verbatim}
 
-Equação com numero
+\end{frame}
+
+\begin{frame}{Equação com numero}
+\protect\hypertarget{equauxe7uxe3o-com-numero}{}
 
 \begin{equation}
 y_i=\beta_0 + \beta_1 x_i + \epsilon_i \label{Eq0}
 \end{equation}
 
-Veja equação (\ref{Eq0}). Podemos usar Wickham (2016) ou (Wickham 2016).
+\end{frame}
+
+\begin{frame}{Veja equação (\ref{Eq0}). Podemos usar Wickham (2016) ou
+(Wickham 2016).}
+\protect\hypertarget{veja-equauxe7uxe3o-.-podemos-usar-ggplot2-ou-ggplot2.}{}
 
 \begin{figure}
 
@@ -401,13 +497,19 @@ y_i=\beta_0 + \beta_1 x_i + \epsilon_i,\label{Eq1}
 
 Veja equação (\ref{Eq1}).
 
+\end{frame}
+
 \hypertarget{referuxeancias}{%
-\section*{Referências}\label{referuxeancias}}
-\addcontentsline{toc}{section}{Referências}
+\section{Referências}\label{referuxeancias}}
+
+\begin{frame}{Referências}
+\protect\hypertarget{referuxeancias-1}{}
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-ggplot2}{}%
 Wickham, Hadley. 2016. \emph{Ggplot2: Elegant Graphics for Data
 Analysis}. Springer-Verlag New York. \url{http://ggplot2.org}.
+
+\end{frame}
 
 \end{document}

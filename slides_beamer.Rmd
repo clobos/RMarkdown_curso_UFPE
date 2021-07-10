@@ -1,29 +1,23 @@
 ---
 title: "Título do meu relatório (html_pdf_document)"
 author: "Cristian Villegas (clobos@usp.br)"
+university: "Universidade de São Paulo"
 date: "`r format(Sys.time(), '%d/%b/%Y')`"
 email: "clobos@usp.br"
 header-includes:
    - \usepackage[portuguese]{babel}
 output: 
-  pdf_document: 
+  beamer_presentation: 
     fig_caption: yes
+    fig_height: 4
+    fig_width: 8
+    fonttheme: serif
     highlight: espresso
     keep_tex: yes
-    number_sections: yes
+    theme: CambridgeUS
     toc: yes
-  html_document: 
-    df_print: kable
-    family: serif
-    highlight: espresso
-    keep_md: yes
-    number_sections: yes
-    theme: journal
-    toc: yes
-    link-citations: yes
-fontsize: 12pt
+fontsize: 10pt
 linestretch: 1.0
-geometry: "left=3cm, right=3cm, top=2.5cm, bottom=2.5cm"
 bibliography: [referencias.bib]
 ---
 
@@ -32,33 +26,20 @@ bibliography: [referencias.bib]
 knitr::opts_chunk$set(eval=TRUE,
                       echo=TRUE,
                       cache = TRUE,
-                      comment = "**--**",
+                      comment = "#",
                       error=TRUE,
                       message = FALSE,
                       warning = FALSE)
 ```
 
-```{r, eval=FALSE, echo=FALSE}
-figura = local({
-  i = 0
-  function(x) {
-    i <<- i + 1
-    paste('Figura ', i, ': ', x, sep = '')
-  }
-})
-
-```
-
-
-# Resumo {-}
+# Resumo
+## Resumo 
 
 Os documentos R Markdown são totalmente reproduzíveis e usa várias linguagens, incluindo R, Python e SQL. R Markdown oferece suporte a dezenas de formatos de saída estáticos e dinâmicos, incluindo HTML, PDF,  Word, Beamer, slides HTML5, apostilas no estilo Tufte, livros, painéis, aplicativos shiny, artigos científicos, sites e muito mais.
-
 Neste minicurso de duas horas, apresentamos as principais ferramentas para criar um relatório dinâmico dentro do Rstudio com exemplos na área da estatística. 
 
-\newpage 
-
-# Alguns links {#links}
+# Links
+## Alguns links {\label{links}}
 
 - https://www.rstudio.com/speakers/yihui-xie/
 
@@ -84,34 +65,42 @@ Veja $f(x)=x^2$
 
 ## Código R
 
-```{r, fig.cap="Gráfico de dispersão qualidade do ar"}
+```{r}
+options(width = 60)
 names(airquality)
 summary(airquality)
+```
+
+## Código R
+
+```{r, fig.cap="Gráfico de dispersão qualidade do ar"}
 pairs(airquality,col="blue", pch=20,
       panel = panel.smooth, lwd=3, lower.panel = NULL)
 ```
 
-A seguir uma lista de opções do `chunk`
+## A seguir uma lista de opções do `chunk`
 
 ```{r}
+options(width = 60)
 names(knitr::opts_chunk$get())
 ```
 
 
-A seguir uma lista de opções do `chunk`
+## A seguir uma lista de opções do `chunk`
 
 ```{r}
+options(width = 60)
 knitr::knit_theme$get()
 ```
 
-A seguir um gráfico de dispersão dos nossos dados...(Veja Figura \ref{scatterplot})
+## A seguir um gráfico de dispersão dos nossos dados...(Veja Figura \ref{scatterplot})
 
-```{r,fig.height=5, fig.width=5,fig.cap= "\\label{scatterplot}Titulo do meu gráfico"}
+```{r,fig.cap= "\\label{scatterplot}Titulo do meu gráfico"}
 plot(Ozone~Wind, data=airquality, pch=20, 
      col="darkorange", lwd=3)
 ```
 
-A seguir o ajuste do modelo usando o \textcolor{red}{software R}
+## A seguir o ajuste do modelo usando o \textcolor{red}{software R}
 
 ```{r}
 ajuste<- lm(Ozone~Wind, data=airquality)
@@ -121,7 +110,9 @@ knitr::kable(betaS, caption = "\\label{tabelajuste}
              Ajuste de um ML para os dados airquality")
 ```
 
-O modelo ajustado foi $\widehat{\text{Ozone}}_i=$ `r teta[1]` `r teta[2]` $\text{Wind}_i$ (Veja Tabela  \ref{tabelajuste})
+## O modelo ajustado foi...
+
+$\widehat{\text{Ozone}}_i=$ `r teta[1]` `r teta[2]` $\text{Wind}_i$ (Veja Tabela  \ref{tabelajuste})
 
 
 \textcolor{red}{Alternativa}
@@ -130,21 +121,23 @@ O modelo ajustado foi $\widehat{\text{Ozone}}_i=$ `r teta[1]` `r teta[2]` $\text
 cat(sprintf("$Ozone=%.3f %.3f Wind$",teta[1], teta[2]))
 ```
 
+
+## Citando livros, artigos, etc
+
 Veja mais detalhes na seção \ref{links}
 
-# Citando livros, artigos, etc
-
+\tiny
 ```{r}
 citation("ggplot2")
 ```
 
-Equação com numero
+## Equação com numero
 
 \begin{equation}
 y_i=\beta_0 + \beta_1 x_i + \epsilon_i \label{Eq0}
 \end{equation}
 
-Veja equação (\ref{Eq0}). Podemos usar @ggplot2 ou [@ggplot2]. 
+## Veja equação (\ref{Eq0}). Podemos usar @ggplot2 ou [@ggplot2]. 
 
 
 ```{r echo=FALSE, out.width='50%',fig.align = 'center',fig.cap="Cachorro"}
@@ -161,3 +154,5 @@ Veja equação (\ref{Eq1}).
 
 
 # Referências 
+
+## Referências 
