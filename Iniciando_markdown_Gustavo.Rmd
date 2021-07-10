@@ -1,15 +1,21 @@
 ---
 title: "markdown"
 author: "Gustavo Jun Yakushiji"
-date: ""
-output: 
-  html_document: 
-    toc: yes
+date: ''
+output:
+  pdf_document: 
+    fig_caption: yes
+    highlight: kate
+    keep_tex: yes
     number_sections: yes
+    toc: yes
+  html_document:
     fontsize: 12pt
-linestretch: 1.0
-geometry: "left=3cm, right=3cm, top=2.5cm, bottom=2.5cm"
-bibliography: [referencias.bib]
+    number_sections: yes
+    toc: yes
+linestretch: 1
+geometry: left=3cm, right=3cm, top=2.5cm, bottom=2.5cm
+bibliography: referencias.bib
 ---
 
 ```{r setup, include=FALSE}
