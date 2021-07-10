@@ -7,14 +7,14 @@ email: "clobos@usp.br"
 output: 
   pdf_document: 
     fig_caption: yes
-    highlight: tango
+    highlight: espresso
     keep_tex: yes
     number_sections: yes
     toc: yes
   html_document: 
     df_print: kable
     family: serif
-    highlight: tango
+    highlight: espresso
     keep_md: yes
     number_sections: yes
     theme: journal

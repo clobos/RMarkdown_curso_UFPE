@@ -2,6 +2,8 @@
 title: "markdown"
 author: "Gustavo Jun Yakushiji"
 date: ''
+header-includes:
+   - \usepackage[portuguese]{babel}
 output:
   word_document: 
     fig_caption: yes
@@ -14,7 +16,7 @@ output:
     toc: yes
   pdf_document: 
     fig_caption: yes
-    highlight: kate
+    highlight: espresso
     keep_tex: yes
     number_sections: yes
     toc: yes

@@ -1,8 +1,9 @@
 ---
-lang: pt-BR
 title: "Título do meu relatório (tufte_html2)"
 author: "Cristian Villegas (clobos@usp.br)"
 date: "`r format(Sys.time(), '%d/%b/%Y')`"
+header-includes:
+   - \usepackage[portuguese]{babel}
 output: 
  bookdown::tufte_html2:
     number_sections: yes
